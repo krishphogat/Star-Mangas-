@@ -4,14 +4,14 @@ const Card = ({ item, type }) => {
   const [liked, setLiked] = useState(false);
 
   const title = item.title || "Unknown Title";
-  const image = type === 'manga' 
-    ? item.images?.jpg?.image_url 
+  const image = type === 'manga'
+    ? item.images?.jpg?.image_url
     : (item.cover_id ? `https://covers.openlibrary.org/b/id/${item.cover_id}-L.jpg` : null);
-  
+
   const score = type === 'manga' ? item.score : (item.edition_count ? `${item.edition_count} Editions` : 'N/A');
   const meta = type === 'manga' ? (item.status || "N/A") : (item.authors?.[0]?.name || "Unknown Author");
-  
-  const tags = type === 'manga' 
+
+  const tags = type === 'manga'
     ? (item.genres?.slice(0, 3).map(g => g.name) || [])
     : (item.subject?.slice(0, 3) || ["Fantasy"]);
 
@@ -27,8 +27,8 @@ const Card = ({ item, type }) => {
       <div className="card-content">
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
           <h3 className="card-title">{title}</h3>
-          <button 
-            className={`like-btn ${liked ? 'liked' : ''}`} 
+          <button
+            className={`like-btn ${liked ? 'liked' : ''}`}
             onClick={() => setLiked(!liked)}
             title={liked ? "Remove from Favorites" : "Add to Favorites"}
           >
@@ -37,11 +37,11 @@ const Card = ({ item, type }) => {
             </svg>
           </button>
         </div>
-        
+
         <p style={{ fontSize: '0.9rem', color: 'var(--secondary)' }}>
-          <strong>{type === 'manga' ? '⭐ Score:' : '✍️ Author:'}</strong> {score || meta}
+          <strong>{type === 'manga' ? ' Score:' : ' Author:'}</strong> {score || meta}
         </p>
-        
+
         <p style={{ fontSize: '0.85rem', opacity: 0.8, overflow: 'hidden', textOverflow: 'ellipsis', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical' }}>
           {item.synopsis || item.first_publish_year || "No synopsis available."}
         </p>

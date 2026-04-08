@@ -26,7 +26,7 @@ function App() {
           fetch('https://api.jikan.moe/v4/top/manga?limit=12'),
           fetch('https://openlibrary.org/subjects/fantasy.json?limit=12')
         ]);
-        
+
         const mangaData = await mangaRes.json();
         const novelsData = await novelsRes.json();
 
@@ -50,7 +50,7 @@ function App() {
   const processData = (items, type) => {
     let filtered = items.filter(item => {
       const matchSearch = (item.title || "").toLowerCase().includes(searchTerm.toLowerCase()) ||
-                          (item.synopsis || "").toLowerCase().includes(searchTerm.toLowerCase());
+        (item.synopsis || "").toLowerCase().includes(searchTerm.toLowerCase());
       return matchSearch;
     });
 
@@ -72,10 +72,10 @@ function App() {
     <div className="app">
       <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
       <Header />
-      
+
       <main>
-        <FilterBar 
-          searchTerm={searchTerm} 
+        <FilterBar
+          searchTerm={searchTerm}
           setSearchTerm={setSearchTerm}
           sortBy={sortBy}
           setSortBy={setSortBy}
@@ -87,8 +87,8 @@ function App() {
           {(filterType === 'all' || filterType === 'manga') && (
             <section className="fade-in" style={{ marginBottom: '4rem' }}>
               <div className="section-header">
-                <h2 className="section-title">⚔️ Popular Manga</h2>
-                <div className="tag">Jikan API</div>
+                <h2 className="section-title">Popular Manga</h2>
+
               </div>
               {loading ? (
                 <div style={{ textAlign: 'center', padding: '3rem', color: 'var(--secondary)' }}>Loading Manga Realms...</div>
@@ -107,8 +107,8 @@ function App() {
           {(filterType === 'all' || filterType === 'novel') && (
             <section className="fade-in">
               <div className="section-header">
-                <h2 className="section-title">📚 Fantasy Novels</h2>
-                <div className="tag">Open Library API</div>
+                <h2 className="section-title">Fantasy Novels</h2>
+
               </div>
               {loading ? (
                 <div style={{ textAlign: 'center', padding: '3rem', color: 'var(--secondary)' }}>Loading Novel Tomes...</div>
@@ -125,10 +125,6 @@ function App() {
           )}
         </div>
       </main>
-
-      <footer style={{ textAlign: 'center', padding: '3rem', borderTop: '1px solid var(--border)', opacity: 0.7 }}>
-        <p>© 2026 Star Mangas • Cultivating Stories Since Epoch</p>
-      </footer>
     </div>
   );
 }

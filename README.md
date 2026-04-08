@@ -1,6 +1,6 @@
-# 🌌 [Star Mangas/Novel]
+#  [Star Mangas/Novel]
 
-## 🧭 Purpose
+##  Purpose
 To Provide Manga's/Novel Readers better enviromnent as current websites are not evolving by time so this will be a evolved version of your previous visited sites/apps.
 Example points to include:
 - It helps users discover manga and novels
@@ -9,9 +9,9 @@ Example points to include:
 
 ---
 
-## 🔗 APIs Used
+##  APIs Used
 
-### ⚔️ Jikan API
+###  Jikan API
 Used for:to fetch manga-related data.
 Provides:
 - Manga titles
@@ -24,7 +24,7 @@ Provides:
 Why I chose it:
 - I chose the Jikan API because it provides structured data for manga such as titles, genres, ratings, and images, which makes it suitable for building a manga browsing interface.
 
-### 📚 Open Library API
+###  Open Library API
 Used for:for novels and book-related data.
 Provides:
 - Book titles
@@ -37,27 +37,27 @@ Why I chose it:
 
 ---
 
-## 🚀 Planned Features
+##  Planned Features
 
-### 🔍 Search Features
+###  Search Features
 - Search by title
 - Search by character name
 - Search by keyword
 - Diffenent plot settings and many more.
-
-### 🎯 Filtering
+  
+###  Filtering
 - Filter by genre
 - Filter by type
 - Filter by status
 - Filter by tags
 - No. of Chapter's
 
-### 🔃 Sorting
+###  Sorting
 - Sort by rating
 - Sort by popularity(Daily,Weakly,Montly,Year Wise and of all times)
 - Sort alphabetically
 
-### 🖼️ UI Features
+###  UI Features
 - Card-based layout
 - Cover images
 - Responsive design
@@ -65,7 +65,7 @@ Why I chose it:
 
 ---
 
-## 🛠️ Technologies Used
+##  Technologies Used
 - HTML
 - CSS
 - JavaScript
@@ -73,14 +73,14 @@ Why I chose it:
 
 ---
 
-## ⚙️ How to Run
+##  How to Run
 1. Clone the repository
 2. Open the folder
 3. Run `index.html` using Live Server or browser
 
 ---
 
-## 🌱 Future Improvements
+##  Future Improvements
 - Add favorites
 - Add reading history
 - Improve search
