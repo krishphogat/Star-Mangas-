@@ -1,90 +1,49 @@
-#  [Star Mangas/Novel]
+# Star Mangas
 
-##  Purpose
-To Provide Manga's/Novel Readers better enviromnent as current websites are not evolving by time so this will be a evolved version of your previous visited sites/apps.
-Example points to include:
-- It helps users discover manga and novels
-- It supports more than title search
-- I chose a cultivation / fantasy inspired theme because i personaly i like it but you will be able to change it in future so give your support fo future developments
+## Purpose
+Star Mangas is a discovery platform for manga and novels. It provides a clean and simple environment for readers to explore new content without distraction. This project is built as a modern React application to offer a better experience compared to traditional static sites.
 
----
+## Features
+- Search by title or keywords.
+- Filter content by type (Manga or Novels).
+- Sort by alphabetical order, score, or newest release.
+- Theme toggle for light and dark modes.
+- Simple, clean design focused on readability.
 
-##  APIs Used
+## APIs Used
 
-###  Jikan API
-Used for:to fetch manga-related data.
-Provides:
-- Manga titles
-- Cover images
-- Genres (Action, Fantasy, etc.)
-- Ratings and popularity
-- Basic character-related information
+### Jikan API
+Used to fetch top manga data, including titles, cover images, genres, and ratings. It provides structured data that makes it easy to build a rich browsing interface.
 
+### Open Library API
+Used for novel and book-related data. I chose this API for its massive collection of book data and support for keyword-based search.
 
-Why I chose it:
-- I chose the Jikan API because it provides structured data for manga such as titles, genres, ratings, and images, which makes it suitable for building a manga browsing interface.
-
-###  Open Library API
-Used for:for novels and book-related data.
-Provides:
-- Book titles
-- Authors
-- Keyword-based search
-- General book information
-
-Why I chose it:
-- I chose the Open Library API because it provides a large collection of book data and supports keyword-based search, which is useful for implementing flexible search features for novels.
-
----
-
-##  Planned Features
-
-###  Search Features
-- Search by title
-- Search by character name
-- Search by keyword
-- Diffenent plot settings and many more.
-  
-###  Filtering
-- Filter by genre
-- Filter by type
-- Filter by status
-- Filter by tags
-- No. of Chapter's
-
-###  Sorting
-- Sort by rating
-- Sort by popularity(Daily,Weakly,Montly,Year Wise and of all times)
-- Sort alphabetically
-
-###  UI Features
-- Card-based layout
-- Cover images
-- Responsive design
-- And customizable Design per User
-
----
-
-##  Technologies Used
-- HTML
-- CSS
+## Technologies Used
+- React
+- Vite
 - JavaScript
+- CSS (Vanilla)
 - Fetch API
 
----
+## How to Run locally
 
-##  How to Run
-1. Clone the repository
-2. Open the folder
-3. Run `index.html` using Live Server or browser
+Prerequisites:
+- Node.js installed on your machine.
 
----
+Steps:
+1. Clone the repository to your local machine.
+2. Open the project folder in your terminal.
+3. Install dependencies:
+   ```bash
+   npm install
+   ```
+4. Start the development server:
+   ```bash
+   npm run dev
+   ```
+5. Open the URL provided in the terminal (usually http://localhost:5173).
 
-##  Future Improvements
-- Add favorites
-- Add reading history
-- Improve search
-- Add advanced filters
-- Add your feed, History based manga/novel Recommendation's
-
----
+## Future Improvements
+- Reading History: Keep track of what you've read.
+- Advanced Filters: Filter by status, chapters, and specific tags.
+- Recommendations: Personalized suggestions based on your search and interest history.

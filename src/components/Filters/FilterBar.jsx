@@ -3,10 +3,10 @@ import React from 'react';
 const FilterBar = ({ searchTerm, setSearchTerm, sortBy, setSortBy, filterType, setFilterType }) => {
   return (
     <div className="container">
-      <div className="controls-container fade-in">
+      <div className="controls-container">
         <input 
           type="text" 
-          placeholder="Search for Manga or Novels..." 
+          placeholder="Search..." 
           className="search-input"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
@@ -17,9 +17,9 @@ const FilterBar = ({ searchTerm, setSearchTerm, sortBy, setSortBy, filterType, s
           value={filterType}
           onChange={(e) => setFilterType(e.target.value)}
         >
-          <option value="all">All Realms</option>
-          <option value="manga">Manga Only</option>
-          <option value="novel">Novels Only</option>
+          <option value="all">All Types</option>
+          <option value="manga">Manga</option>
+          <option value="novel">Novels</option>
         </select>
 
         <select 

@@ -3,14 +3,14 @@ import React from 'react';
 const Header = () => {
   return (
     <header className="hero">
-      <div className="hero-content fade-in">
-        <h1>🌌 Star Mangas</h1>
+      <div className="hero-content">
+        <h1>Star Mangas</h1>
         <p>
-          A cultivation-inspired discovery space for manga and novels. 
-          Dive into the realms of infinite stories and legendary adventures.
+          Your personal place to discover manga and novels. 
+          Browse through a collection of stories and find your next read.
         </p>
-        <button className="btn btn-primary" onClick={() => window.scrollTo({ top: 600, behavior: 'smooth' })}>
-          Explore the Realms
+        <button className="btn btn-primary" onClick={() => window.scrollTo({ top: 500, behavior: 'smooth' })}>
+          Browse Now
         </button>
       </div>
     </header>

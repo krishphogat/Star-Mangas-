@@ -83,15 +83,15 @@ function App() {
           setFilterType={setFilterType}
         />
 
-        <div className="container" style={{ paddingBottom: '5rem' }}>
+        <div className="container" style={{ paddingBottom: '3rem' }}>
           {(filterType === 'all' || filterType === 'manga') && (
-            <section className="fade-in" style={{ marginBottom: '4rem' }}>
+            <section style={{ marginBottom: '3rem' }}>
               <div className="section-header">
                 <h2 className="section-title">Popular Manga</h2>
 
               </div>
               {loading ? (
-                <div style={{ textAlign: 'center', padding: '3rem', color: 'var(--secondary)' }}>Loading Manga Realms...</div>
+                <div style={{ textAlign: 'center', padding: '3rem' }}>Loading...</div>
               ) : filteredManga.length > 0 ? (
                 <div className="card-grid">
                   {filteredManga.map(item => (
@@ -99,19 +99,19 @@ function App() {
                   ))}
                 </div>
               ) : (
-                <div style={{ textAlign: 'center', padding: '3rem', opacity: 0.6 }}>No manga found matching your quest.</div>
+                <div style={{ textAlign: 'center', padding: '3rem', opacity: 0.6 }}>No manga found.</div>
               )}
             </section>
           )}
 
           {(filterType === 'all' || filterType === 'novel') && (
-            <section className="fade-in">
+            <section>
               <div className="section-header">
                 <h2 className="section-title">Fantasy Novels</h2>
 
               </div>
               {loading ? (
-                <div style={{ textAlign: 'center', padding: '3rem', color: 'var(--secondary)' }}>Loading Novel Tomes...</div>
+                <div style={{ textAlign: 'center', padding: '3rem' }}>Loading...</div>
               ) : filteredNovels.length > 0 ? (
                 <div className="card-grid">
                   {filteredNovels.map(item => (
@@ -119,7 +119,7 @@ function App() {
                   ))}
                 </div>
               ) : (
-                <div style={{ textAlign: 'center', padding: '3rem', opacity: 0.6 }}>No novels found matching your quest.</div>
+                <div style={{ textAlign: 'center', padding: '3rem', opacity: 0.6 }}>No novels found.</div>
               )}
             </section>
           )}
