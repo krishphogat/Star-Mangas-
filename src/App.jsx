@@ -5,12 +5,32 @@ import Card from './components/Card/Card';
 import ThemeToggle from './components/ThemeToggle/ThemeToggle';
 import './index.css';
 
+const ContentSection = ({ title, loading, items, type, emptyMessage }) => (
+  <section>
+    <div className="section-header">
+      <h2 className="section-title">{title}</h2>
+    </div>
+    {loading ? (
+      <div className="loading-state">Loading...</div>
+    ) : items.length > 0 ? (
+      <div className="card-grid">
+        {items.map(item => (
+          <Card key={item.mal_id || item.key} item={item} type={type} />
+        ))}
+      </div>
+    ) : (
+      <div className="empty-state">{emptyMessage}</div>
+    )}
+  </section>
+);
+
 function App() {
   const [manga, setManga] = useState([]);
   const [novels, setNovels] = useState([]);
   const [loading, setLoading] = useState(true);
   const [theme, setTheme] = useState('dark');
   const [searchTerm, setSearchTerm] = useState('');
+  const [debouncedSearch, setDebouncedSearch] = useState('');
   const [sortBy, setSortBy] = useState('none');
   const [filterType, setFilterType] = useState('all');
 
@@ -18,20 +38,40 @@ function App() {
     document.documentElement.setAttribute('data-theme', theme);
   }, [theme]);
 
+  // Handle Debouncing
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearch(searchTerm);
+    }, 500);
+    return () => clearTimeout(timer);
+  }, [searchTerm]);
+
+  // Fetch Data on Search Change
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
       try {
+        let mangaUrl, novelsUrl;
+
+        if (debouncedSearch) {
+          mangaUrl = `https://api.jikan.moe/v4/manga?q=${encodeURIComponent(debouncedSearch)}&limit=12&order_by=popularity&sort=desc`;
+          novelsUrl = `https://openlibrary.org/search.json?q=${encodeURIComponent(debouncedSearch)}&limit=12`;
+        } else {
+          mangaUrl = 'https://api.jikan.moe/v4/top/manga?limit=12';
+          novelsUrl = 'https://openlibrary.org/subjects/fantasy.json?limit=12';
+        }
+
         const [mangaRes, novelsRes] = await Promise.all([
-          fetch('https://api.jikan.moe/v4/top/manga?limit=12'),
-          fetch('https://openlibrary.org/subjects/fantasy.json?limit=12')
+          fetch(mangaUrl),
+          fetch(novelsUrl)
         ]);
 
         const mangaData = await mangaRes.json();
         const novelsData = await novelsRes.json();
 
+        // Search API returns data in different fields
         setManga(mangaData.data || []);
-        setNovels(novelsData.works || []);
+        setNovels(novelsData.works || novelsData.docs || []);
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
@@ -40,29 +80,25 @@ function App() {
     };
 
     fetchData();
-  }, []);
+  }, [debouncedSearch]);
 
   const toggleTheme = () => {
     setTheme(prev => prev === 'dark' ? 'light' : 'dark');
   };
 
-  // Helper to filter data using Higher-Order Functions
   const processData = (items, type) => {
-    let filtered = items.filter(item => {
-      const matchSearch = (item.title || "").toLowerCase().includes(searchTerm.toLowerCase()) ||
-        (item.synopsis || "").toLowerCase().includes(searchTerm.toLowerCase());
-      return matchSearch;
-    });
+    // We no longer filter locally, but we still sort
+    let sorted = [...items];
 
     if (sortBy === 'title') {
-      filtered.sort((a, b) => (a.title || "").localeCompare(b.title || ""));
+      sorted.sort((a, b) => (a.title || "").localeCompare(b.title || ""));
     } else if (sortBy === 'score' && type === 'manga') {
-      filtered.sort((a, b) => (b.score || 0) - (a.score || 0));
+      sorted.sort((a, b) => (b.score || 0) - (a.score || 0));
     } else if (sortBy === 'newest') {
-      filtered.sort((a, b) => (b.first_publish_year || 0) - (a.first_publish_year || 0));
+      sorted.sort((a, b) => (b.first_publish_year || 0) - (a.first_publish_year || 0));
     }
 
-    return filtered;
+    return sorted;
   };
 
   const filteredManga = processData(manga, 'manga');
@@ -73,7 +109,7 @@ function App() {
       <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
       <Header />
 
-      <main>
+      <main className="app-main">
         <FilterBar
           searchTerm={searchTerm}
           setSearchTerm={setSearchTerm}
@@ -83,45 +119,25 @@ function App() {
           setFilterType={setFilterType}
         />
 
-        <div className="container" style={{ paddingBottom: '3rem' }}>
+        <div className="container">
           {(filterType === 'all' || filterType === 'manga') && (
-            <section style={{ marginBottom: '3rem' }}>
-              <div className="section-header">
-                <h2 className="section-title">Popular Manga</h2>
-
-              </div>
-              {loading ? (
-                <div style={{ textAlign: 'center', padding: '3rem' }}>Loading...</div>
-              ) : filteredManga.length > 0 ? (
-                <div className="card-grid">
-                  {filteredManga.map(item => (
-                    <Card key={item.mal_id} item={item} type="manga" />
-                  ))}
-                </div>
-              ) : (
-                <div style={{ textAlign: 'center', padding: '3rem', opacity: 0.6 }}>No manga found.</div>
-              )}
-            </section>
+            <ContentSection
+              title="Popular Manga"
+              loading={loading}
+              items={filteredManga}
+              type="manga"
+              emptyMessage="No manga found."
+            />
           )}
 
           {(filterType === 'all' || filterType === 'novel') && (
-            <section>
-              <div className="section-header">
-                <h2 className="section-title">Fantasy Novels</h2>
-
-              </div>
-              {loading ? (
-                <div style={{ textAlign: 'center', padding: '3rem' }}>Loading...</div>
-              ) : filteredNovels.length > 0 ? (
-                <div className="card-grid">
-                  {filteredNovels.map(item => (
-                    <Card key={item.key} item={item} type="novel" />
-                  ))}
-                </div>
-              ) : (
-                <div style={{ textAlign: 'center', padding: '3rem', opacity: 0.6 }}>No novels found.</div>
-              )}
-            </section>
+            <ContentSection
+              title="Fantasy Novels"
+              loading={loading}
+              items={filteredNovels}
+              type="novel"
+              emptyMessage="No novels found."
+            />
           )}
         </div>
       </main>
